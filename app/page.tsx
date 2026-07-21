@@ -32,6 +32,7 @@ export default function Home() {
             <p className="lede">Dependable tree, brush, and stump work for the yards you live in and the land you&rsquo;re proud of.</p>
             <div className="hero-actions"><a className="button button-clay" href="#contact">Start with a free quote <span>→</span></a><a className="text-link" href="#services">Explore our work <span>↓</span></a></div>
           </div>
+          <div className="hero-photo-wrap"><img className="hero-photo" src="/work/arborist-at-work.png" alt="Arborist safely trimming a mature tree" /><span className="photo-tag">On the job / San Antonio</span></div>
           <aside className="hero-note"><span className="note-mark">✦</span><p>Clear communication.<br />Careful work. <em>Clean finish.</em></p><span className="san-antonio">29.4241° N<br />98.4936° W</span></aside>
         </div>
         <div className="hero-bottom"><span>Locally focused</span><span className="line" /><span>Tree removal · trimming · brush clearing</span></div>
@@ -42,6 +43,15 @@ export default function Home() {
         <div className="statement-top"><h2>The work outside<br />should feel <em>easy.</em></h2><p>Whether you need one troublesome oak handled or a whole lot cleared, we listen first, work with care, and leave your property looking better than we found it.</p></div>
         <div className="services">{services.map(([num, title, text]) => <article key={num} className="service"><span>{num}</span><h3>{title}</h3><p>{text}</p><b>↗</b></article>)}</div>
       </section>
+
+      <section className="work-gallery" aria-label="Tree and brush removal work">
+        <div className="gallery-heading"><p className="section-label">Made for the property you have</p><h2>The view after<br /><em>the work.</em></h2><a className="text-link" href="#contact">Get your project started <span>→</span></a></div>
+        <figure className="work-card work-card-large"><img src="/work/tree-chipper.png" alt="Tree chipper handling freshly cut branches" loading="lazy" /><figcaption>Brush clearing <span>01</span></figcaption></figure>
+        <figure className="work-card"><img src="/work/fallen-tree.png" alt="Freshly cut tree removed from a property" loading="lazy" /><figcaption>Tree removal <span>02</span></figcaption></figure>
+        <figure className="work-card work-card-stump"><img src="/work/stump-grinding.png" alt="Stump grinder at work near a landscaped edge" loading="lazy" /><figcaption>Stump grinding <span>03</span></figcaption></figure>
+      </section>
+
+      <section className="process"><p className="section-label">A straightforward process</p><div className="process-steps"><div><b>01</b><h3>Tell us what&rsquo;s going on</h3><p>Send a few details about the trees, brush, or stump you need handled.</p></div><div><b>02</b><h3>Get a clear plan</h3><p>We&rsquo;ll talk through the job, timing, and the right way to approach it.</p></div><div><b>03</b><h3>Enjoy the cleared space</h3><p>We do the hard part and leave you with a clean finish.</p></div></div></section>
 
       <section className="proof" id="reviews">
         <div className="proof-copy"><p className="section-label">Neighbors notice</p><h2>Work that earns<br />a <em>call back.</em></h2><div className="rating"><strong>★★★★★</strong><span>Highly recommended<br />by local homeowners</span></div></div>
