@@ -2,88 +2,40 @@
 
 import { FormEvent, useEffect, useState } from "react";
 
-const services = [
-  ["01", "Tree removal", "From crowded yards to problem trees, we make space safely and cleanly."],
-  ["02", "Trimming & pruning", "Thoughtful cuts that help your trees look better and grow stronger."],
-  ["03", "Brush clearing", "Clear out overgrowth, storm debris, and brush piles without the mess lingering."],
-  ["04", "Stump grinding", "Finish the job right and reclaim the ground beneath an old stump."],
+const work = [
+  ["Tree trimming", "Thoughtful cuts for safer, healthier trees.", "/work/arborist-at-work.png"],
+  ["Brush & lot clearing", "Clear the overgrowth and make space for what is next.", "/work/tree-chipper.png"],
+  ["Removal & stumps", "From problem trees to the last stump left behind.", "/work/stump-grinding.png"],
 ];
 
 export default function Home() {
   const [submitted, setSubmitted] = useState(false);
-
   useEffect(() => {
-    const observer = new IntersectionObserver((entries) => {
-      entries.forEach((entry) => {
-        if (entry.isIntersecting) {
-          entry.target.classList.add("is-visible");
-          observer.unobserve(entry.target);
-        }
-      });
-    }, { threshold: 0.12 });
+    const observer = new IntersectionObserver((items) => items.forEach((item) => {
+      if (item.isIntersecting) { item.target.classList.add("show"); observer.unobserve(item.target); }
+    }), { threshold: 0.16 });
     document.querySelectorAll(".reveal").forEach((node) => observer.observe(node));
     return () => observer.disconnect();
   }, []);
+  function submit(event: FormEvent<HTMLFormElement>) { event.preventDefault(); setSubmitted(true); }
 
-  function submit(event: FormEvent<HTMLFormElement>) {
-    event.preventDefault();
-    setSubmitted(true);
-  }
+  return <main className="site">
+    <div className="utility"><span>San Antonio tree service</span><span>Free project conversations</span><a href="#quote">Request a quote <b>→</b></a></div>
+    <header className="header"><a className="logo" href="#top"><span>SA</span><strong>Tree &amp; Brush</strong></a><nav><a href="#services">Services</a><a href="#work">Our work</a><a href="#reviews">Reviews</a></nav><a className="header-cta" href="#quote">Get a free quote <b>↗</b></a></header>
 
-  return (
-    <main>
-      <section className="hero" id="top">
-        <nav className="nav">
-          <a className="brand" href="#top"><span>SA</span> Tree &amp; Brush</a>
-          <div className="nav-links"><a href="#services">Services</a><a href="#reviews">Reviews</a><a href="#contact">Get a quote</a></div>
-          <a className="nav-cta" href="#contact">Request service <b>↘</b></a>
-        </nav>
-        <div className="hero-grid">
-          <div className="hero-copy">
-            <p className="eyebrow">San Antonio, Texas <i /> Tree care &amp; clearing</p>
-            <h1>Room to<br /><em>breathe.</em></h1>
-            <p className="lede">Dependable tree, brush, and stump work for the yards you live in and the land you&rsquo;re proud of.</p>
-            <div className="hero-actions"><a className="button button-clay" href="#contact">Start with a free quote <span>→</span></a><a className="text-link" href="#services">Explore our work <span>↓</span></a></div>
-          </div>
-          <div className="hero-photo-wrap"><img className="hero-photo" src="/work/arborist-at-work.png" alt="Arborist safely trimming a mature tree" /><span className="photo-tag">On the job / San Antonio</span></div>
-          <aside className="hero-note"><span className="note-mark">✦</span><p>Clear communication.<br />Careful work. <em>Clean finish.</em></p><span className="san-antonio">29.4241° N<br />98.4936° W</span></aside>
-        </div>
-        <div className="hero-bottom"><span>Locally focused</span><span className="line" /><span>Tree removal · trimming · brush clearing</span></div>
-      </section>
+    <section className="hero-new" id="top"><img src="/work/fallen-tree.png" alt="Freshly cut tree on a San Antonio property" /><div className="hero-shade" /><div className="hero-content"><p className="kicker">San Antonio, Texas · Tree care &amp; clearing</p><h1>Better land<br /><i>starts here.</i></h1><p>Tree work that clears the way for the yard, lot, and outdoor life you want.</p><div><a className="orange-btn" href="#quote">Start your project <span>→</span></a><a className="quiet-link" href="#services">See what we do ↓</a></div></div><div className="hero-stamp"><span>Local work</span><b>Careful<br />crew</b><i>San Antonio<br />Texas</i></div></section>
 
-      <section className="statement reveal" id="services">
-        <p className="section-label">What we handle</p>
-        <div className="statement-top"><h2>The work outside<br />should feel <em>easy.</em></h2><p>Whether you need one troublesome oak handled or a whole lot cleared, we listen first, work with care, and leave your property looking better than we found it.</p></div>
-        <div className="services">{services.map(([num, title, text]) => <article key={num} className="service"><span>{num}</span><h3>{title}</h3><p>{text}</p><b>↗</b></article>)}</div>
-      </section>
+    <section className="intro reveal"><p className="kicker dark">What we&rsquo;re here for</p><div><h2>Not just tree work.<br /><i>More room to live.</i></h2><p>From one branch that has outgrown its place to an entire lot that needs clearing, our work is about making your property safer, cleaner, and ready for what&rsquo;s next.</p></div></section>
 
-      <section className="work-gallery" aria-label="Tree and brush removal work">
-        <div className="gallery-heading"><p className="section-label">Made for the property you have</p><h2>The view after<br /><em>the work.</em></h2><a className="text-link" href="#contact">Get your project started <span>→</span></a></div>
-        <figure className="work-card work-card-large"><img src="/work/tree-chipper.png" alt="Tree chipper handling freshly cut branches" loading="lazy" /><figcaption>Brush clearing <span>01</span></figcaption></figure>
-        <figure className="work-card"><img src="/work/fallen-tree.png" alt="Freshly cut tree removed from a property" loading="lazy" /><figcaption>Tree removal <span>02</span></figcaption></figure>
-        <figure className="work-card work-card-stump"><img src="/work/stump-grinding.png" alt="Stump grinder at work near a landscaped edge" loading="lazy" /><figcaption>Stump grinding <span>03</span></figcaption></figure>
-      </section>
+    <section className="service-stack" id="services">{work.map(([name, text, image], index) => <article className="service-panel reveal" key={name}><div className="service-no">0{index + 1}</div><img src={image} alt="" loading="lazy" /><div className="service-copy"><h3>{name}</h3><p>{text}</p><a href="#quote">Request service <span>→</span></a></div></article>)}</section>
 
-      <section className="process"><p className="section-label">A straightforward process</p><div className="process-steps"><div><b>01</b><h3>Tell us what&rsquo;s going on</h3><p>Send a few details about the trees, brush, or stump you need handled.</p></div><div><b>02</b><h3>Get a clear plan</h3><p>We&rsquo;ll talk through the job, timing, and the right way to approach it.</p></div><div><b>03</b><h3>Enjoy the cleared space</h3><p>We do the hard part and leave you with a clean finish.</p></div></div></section>
+    <section className="why reveal"><div className="why-image"><img src="/work/tree-chipper.png" alt="Brush being removed by professional equipment" loading="lazy" /><span>Clear plan.<br />Clean finish.</span></div><div className="why-copy"><p className="kicker">Why people call us</p><h2>Work with a<br /><i>lighter footprint.</i></h2><div className="checks"><p><b>01</b> A team that listens before getting to work</p><p><b>02</b> A clear plan for the job in front of you</p><p><b>03</b> A property that looks better when we leave</p></div><a className="dark-btn" href="#quote">Talk through your project <span>→</span></a></div></section>
 
-      <section className="service-paths reveal"><div className="paths-intro"><p className="section-label">The right kind of help</p><h2>One crew.<br /><em>Three clear paths.</em></h2><p>Start with the situation you&rsquo;re in. We&rsquo;ll make the next step feel simple.</p></div><div className="paths-grid"><a href="#contact" className="path-card"><span>01</span><h3>Home &amp; yard</h3><p>Trim, remove, grind, or clear the things getting in the way of your outdoor space.</p><b>Request a quote →</b></a><a href="#contact" className="path-card"><span>02</span><h3>Property &amp; lots</h3><p>Clear brush, manage problem trees, and make room for what comes next.</p><b>Plan the work →</b></a><a href="#contact" className="path-card path-card-dark"><span>03</span><h3>Storm &amp; urgent</h3><p>Have a fallen limb or a tree that needs attention? Tell us what happened.</p><b>Get in touch →</b></a></div></section>
+    <section className="reviews-new reveal" id="reviews"><div><p className="kicker dark">From local customers</p><h2>The kind of crew<br /><i>you call again.</i></h2><p className="stars">★★★★★</p></div><div className="quote-grid"><blockquote>“They were super helpful throughout the whole process and made sure we felt comfortable with it all.”<footer>Vicki N. <span>Local customer</span></footer></blockquote><blockquote>“Extremely professional and listened to my needs. 10/10 would use again.”<footer>Matthew M. <span>Local customer</span></footer></blockquote></div></section>
 
-      <section className="proof reveal" id="reviews">
-        <div className="proof-copy"><p className="section-label">Neighbors notice</p><h2>Work that earns<br />a <em>call back.</em></h2><div className="rating"><strong>★★★★★</strong><span>Highly recommended<br />by local homeowners</span></div></div>
-        <div className="reviews">
-          <blockquote>“They were super helpful throughout the whole process and made sure we felt comfortable with it all.”<footer>Vicki N. <span>— local customer</span></footer></blockquote>
-          <blockquote>“Extremely professional and listened to my needs. 10/10 would use again.”<footer>Matthew M. <span>— local customer</span></footer></blockquote>
-        </div>
-      </section>
+    <section className="map-band reveal" id="work"><div className="map-copy"><p className="kicker">Serving San Antonio</p><h2>Close by when<br /><i>the work calls.</i></h2><p>Serving local homes, lots, and businesses with a practical approach to tree and brush removal.</p><a href="https://www.google.com/maps/place/San+Antonio+Tree+and+Brush+Removal/@29.5202864,-98.481919,13z" target="_blank" rel="noreferrer">View our location ↗</a></div><iframe title="San Antonio Tree and Brush Removal map" src="https://www.google.com/maps?q=San%20Antonio%20Tree%20and%20Brush%20Removal%2C%20San%20Antonio%2C%20TX&output=embed" loading="lazy" /></section>
 
-      <section className="location" aria-label="San Antonio service area"><div className="location-copy"><p className="section-label">Rooted in San Antonio</p><h2>Good work,<br /><em>close to home.</em></h2><p>From established neighborhoods to open lots, we help San Antonio property owners clear space, protect what matters, and keep outdoor areas looking their best.</p><div className="location-points"><span>● Local service area</span><span>● Free project conversations</span><span>● Residential &amp; commercial</span></div><a className="button button-clay" href="#contact">Request your free quote <span>→</span></a></div><div className="map-frame"><iframe title="San Antonio Tree and Brush Removal on Google Maps" src="https://www.google.com/maps?q=San%20Antonio%20Tree%20and%20Brush%20Removal%2C%20San%20Antonio%2C%20TX&output=embed" loading="lazy" referrerPolicy="no-referrer-when-downgrade" /><a href="https://www.google.com/maps/place/San+Antonio+Tree+and+Brush+Removal/@29.5202864,-98.481919,13z/data=!4m10!1m2!2m1!1ssan+antonio+tree+and+brush+removal!3m6!1s0x865cf54ca6b0a871:0x48942243afb684e8!8m2!3d29.5202864!4d-98.4057013!15sCiJzYW4gYW50b25pbyB0cmVlIGFuZCBicnVzaCByZW1vdmFskgEMdHJlZV9zZXJ2aWNl4AEA!16s%2Fg%2F11t_ltcmvq?entry=ttu&g_ep=EgoyMDI2MDcxNS4wIKXMDSoASAFQAw%3D%3D" target="_blank" rel="noreferrer">Open in Google Maps ↗</a></div></section>
-
-      <section className="contact" id="contact">
-        <div className="contact-intro"><p className="section-label">Let&rsquo;s talk trees</p><h2>What needs<br /><em>clearing?</em></h2><p>Tell us a little about your project. We&rsquo;ll make it simple from here.</p><a className="map-link" href="https://www.google.com/maps/place/San+Antonio+Tree+and+Brush+Removal/@29.5202864,-98.481919,13z/data=!4m10!1m2!2m1!1ssan+antonio+tree+and+brush+removal!3m6!1s0x865cf54ca6b0a871:0x48942243afb684e8!8m2!3d29.5202864!4d-98.4057013!15sCiJzYW4gYW50b25pbyB0cmVlIGFuZCBicnVzaCByZW1vdmFskgEMdHJlZV9zZXJ2aWNl4AEA!16s%2Fg%2F11t_ltcmvq?entry=ttu&g_ep=EgoyMDI2MDcxNS4wIKXMDSoASAFQAw%3D%3D" target="_blank" rel="noreferrer">Find us in San Antonio <span>↗</span></a></div>
-        <form onSubmit={submit}>{submitted ? <div className="success"><span>✓</span><h3>Demo received.</h3><p>This is a demo website, so no information was sent. In the live site, this would go directly to the team.</p><button type="button" onClick={() => setSubmitted(false)}>Send another</button></div> : <><label>Your name<input required name="name" placeholder="First and last name" /></label><label>Best phone or email<input required name="contact" placeholder="How should we reach you?" /></label><label>What can we help with?<select name="service" defaultValue=""><option value="" disabled>Select a service</option><option>Tree removal</option><option>Trimming & pruning</option><option>Brush clearing</option><option>Stump grinding</option><option>Something else</option></select></label><label>Tell us a little more<textarea name="details" placeholder="Property details, timing, or anything else helpful" rows={3} /></label><button className="button button-clay" type="submit">Send my request <span>→</span></button><small>Demo only — this form does not send information.</small></>}</form>
-      </section>
-
-      <footer><a className="brand" href="#top"><span>SA</span> Tree &amp; Brush</a><p>San Antonio Tree &amp; Brush Removal</p><a href="#top">Back to top ↑</a></footer>
-    </main>
-  );
+    <section className="quote-section" id="quote"><div><p className="kicker">Start with the situation</p><h2>What needs<br /><i>clearing?</i></h2><p>Give us the broad strokes. We&rsquo;ll help you figure out the rest.</p><small>Demo only — this form does not send information.</small></div>{submitted ? <div className="form-success"><b>✓</b><h3>Demo request received.</h3><p>No details were sent. In a live site, the team would follow up from here.</p><button onClick={() => setSubmitted(false)}>Send another request</button></div> : <form onSubmit={submit}><label>Name<input required placeholder="First and last name" /></label><label>Phone or email<input required placeholder="Best way to reach you" /></label><label>What do you need?<select defaultValue=""><option value="" disabled>Select a service</option><option>Tree trimming</option><option>Brush / lot clearing</option><option>Tree removal</option><option>Stump grinding</option><option>Something else</option></select></label><label>Project notes<textarea rows={3} placeholder="A few details about the property or job" /></label><button className="orange-btn" type="submit">Send my request <span>→</span></button></form>}</section>
+    <footer className="footer"><a className="logo" href="#top"><span>SA</span><strong>Tree &amp; Brush</strong></a><p>San Antonio Tree &amp; Brush Removal</p><a href="#top">Back to top ↑</a></footer>
+  </main>;
 }
