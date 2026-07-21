@@ -7,6 +7,17 @@ const work = [
   ["Brush & lot clearing", "Clear the overgrowth and make space for what is next.", "/work/tree-chipper.png"],
   ["Removal & stumps", "From problem trees to the last stump left behind.", "/work/stump-grinding.png"],
 ];
+const reviews = [
+  ["Vicki Ngo", "vicki-ngo", "They were super helpful throughout the whole process and made sure we felt comfortable with it all."],
+  ["Matthew Marquis", "matthew-marquis", "Extremely professional and listened to my needs. 10/10 would use again."],
+  ["Marc Gomez", "marc-gomez", "I had a big oak removed and the stump ground. I was not let down."],
+  ["Nancy Ford", "nancy-ford", "Their crew removed invasive trees in our backyard and cleaned up really well."],
+  ["David Akin", "david-akin", "Fast work, attention to detail, and they removed all remnants of the tree."],
+  ["Stephanie Marquis", "stephanie-marquis", "Very professional, gave great advice, and excellent service."],
+  ["Dee Cee", "dee-cee", "Quality and professionalism."],
+  ["Jetblacklotus", "jetblacklotus", "Responsive, punctual, professional, and a great value."],
+  ["Angela Pierce", "angela-pierce", "Responsive, quality service, and professionalism."],
+];
 
 export default function Home() {
   const [submitted, setSubmitted] = useState(false);
@@ -31,7 +42,7 @@ export default function Home() {
 
     <section className="why reveal"><div className="why-image"><img src="/work/tree-chipper.png" alt="Brush being removed by professional equipment" loading="lazy" /><span>Clear plan.<br />Clean finish.</span></div><div className="why-copy"><p className="kicker">Why people call us</p><h2>Work with a<br /><i>lighter footprint.</i></h2><div className="checks"><p><b>01</b> A team that listens before getting to work</p><p><b>02</b> A clear plan for the job in front of you</p><p><b>03</b> A property that looks better when we leave</p></div><a className="dark-btn" href="#quote">Talk through your project <span>→</span></a></div></section>
 
-    <section className="reviews-new reveal" id="reviews"><div><p className="kicker dark">From local customers</p><h2>The kind of crew<br /><i>you call again.</i></h2><p className="stars">★★★★★</p></div><div className="quote-grid"><blockquote>“They were super helpful throughout the whole process and made sure we felt comfortable with it all.”<footer>Vicki N. <span>Local customer</span></footer></blockquote><blockquote>“Extremely professional and listened to my needs. 10/10 would use again.”<footer>Matthew M. <span>Local customer</span></footer></blockquote></div></section>
+    <section className="reviews-new reveal" id="reviews"><div><p className="kicker dark">From local customers</p><h2>The kind of crew<br /><i>you call again.</i></h2><p className="stars">★★★★★</p><p className="review-note">Real Google reviews from San Antonio neighbors.</p></div><div className="quote-grid">{reviews.map(([name, avatar, quote]) => <blockquote key={name}><div className="review-person"><img src={`/reviews/${avatar}.png`} alt={`${name} profile`} loading="lazy" /><div><b>{name}</b><span>★★★★★</span></div></div><p>“{quote}”</p></blockquote>)}</div></section>
 
     <section className="map-band reveal" id="work"><div className="map-copy"><p className="kicker">Serving San Antonio</p><h2>Close by when<br /><i>the work calls.</i></h2><p>Serving local homes, lots, and businesses with a practical approach to tree and brush removal.</p><a href="https://www.google.com/maps/place/San+Antonio+Tree+and+Brush+Removal/@29.5202864,-98.481919,13z" target="_blank" rel="noreferrer">View our location ↗</a></div><iframe title="San Antonio Tree and Brush Removal map" src="https://www.google.com/maps?q=San%20Antonio%20Tree%20and%20Brush%20Removal%2C%20San%20Antonio%2C%20TX&output=embed" loading="lazy" /></section>
 
