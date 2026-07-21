@@ -1,6 +1,6 @@
 "use client";
 
-import { FormEvent, useState } from "react";
+import { FormEvent, useEffect, useState } from "react";
 
 const services = [
   ["01", "Tree removal", "From crowded yards to problem trees, we make space safely and cleanly."],
@@ -11,6 +11,19 @@ const services = [
 
 export default function Home() {
   const [submitted, setSubmitted] = useState(false);
+
+  useEffect(() => {
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add("is-visible");
+          observer.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.12 });
+    document.querySelectorAll(".reveal").forEach((node) => observer.observe(node));
+    return () => observer.disconnect();
+  }, []);
 
   function submit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
@@ -38,7 +51,7 @@ export default function Home() {
         <div className="hero-bottom"><span>Locally focused</span><span className="line" /><span>Tree removal · trimming · brush clearing</span></div>
       </section>
 
-      <section className="statement" id="services">
+      <section className="statement reveal" id="services">
         <p className="section-label">What we handle</p>
         <div className="statement-top"><h2>The work outside<br />should feel <em>easy.</em></h2><p>Whether you need one troublesome oak handled or a whole lot cleared, we listen first, work with care, and leave your property looking better than we found it.</p></div>
         <div className="services">{services.map(([num, title, text]) => <article key={num} className="service"><span>{num}</span><h3>{title}</h3><p>{text}</p><b>↗</b></article>)}</div>
@@ -53,7 +66,9 @@ export default function Home() {
 
       <section className="process"><p className="section-label">A straightforward process</p><div className="process-steps"><div><b>01</b><h3>Tell us what&rsquo;s going on</h3><p>Send a few details about the trees, brush, or stump you need handled.</p></div><div><b>02</b><h3>Get a clear plan</h3><p>We&rsquo;ll talk through the job, timing, and the right way to approach it.</p></div><div><b>03</b><h3>Enjoy the cleared space</h3><p>We do the hard part and leave you with a clean finish.</p></div></div></section>
 
-      <section className="proof" id="reviews">
+      <section className="service-paths reveal"><div className="paths-intro"><p className="section-label">The right kind of help</p><h2>One crew.<br /><em>Three clear paths.</em></h2><p>Start with the situation you&rsquo;re in. We&rsquo;ll make the next step feel simple.</p></div><div className="paths-grid"><a href="#contact" className="path-card"><span>01</span><h3>Home &amp; yard</h3><p>Trim, remove, grind, or clear the things getting in the way of your outdoor space.</p><b>Request a quote →</b></a><a href="#contact" className="path-card"><span>02</span><h3>Property &amp; lots</h3><p>Clear brush, manage problem trees, and make room for what comes next.</p><b>Plan the work →</b></a><a href="#contact" className="path-card path-card-dark"><span>03</span><h3>Storm &amp; urgent</h3><p>Have a fallen limb or a tree that needs attention? Tell us what happened.</p><b>Get in touch →</b></a></div></section>
+
+      <section className="proof reveal" id="reviews">
         <div className="proof-copy"><p className="section-label">Neighbors notice</p><h2>Work that earns<br />a <em>call back.</em></h2><div className="rating"><strong>★★★★★</strong><span>Highly recommended<br />by local homeowners</span></div></div>
         <div className="reviews">
           <blockquote>“They were super helpful throughout the whole process and made sure we felt comfortable with it all.”<footer>Vicki N. <span>— local customer</span></footer></blockquote>
