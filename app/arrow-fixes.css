@@ -1,4 +1,6 @@
 .service a{display:inline-flex;align-items:center;gap:9px;outline:none}
 .service a b{display:grid;place-items:center;width:24px;height:24px;margin-left:0;border-radius:50%;background:#d5ead9;color:#245b3a;font-size:14px;font-weight:500;line-height:1;transition:transform .45s cubic-bezier(.32,.72,0,1),background .3s ease}
 .service a:hover b{transform:translate(2px,-2px);background:var(--mint)}
+.intro-trust>a b{display:grid;place-items:center;width:28px;height:28px;border-radius:50%;background:#172426;color:#96e6ae;font-size:16px;font-weight:500;line-height:1;transition:transform .45s cubic-bezier(.32,.72,0,1)}
+.intro-trust>a:hover b{transform:translate(2px,-2px)}
 a:focus-visible,button:focus-visible{outline:2px solid #39784e;outline-offset:4px;border-radius:6px}
